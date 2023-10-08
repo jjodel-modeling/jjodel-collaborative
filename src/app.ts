@@ -1,12 +1,23 @@
-import express from 'express';
-import {TestRouter} from './routes/test';
+import {createServer} from 'http';
+import {Server, Socket} from 'socket.io';
 
-const app = express();
+const server = createServer();
+const io = new Server(server, {
+    // delete this line (setupProxy.js on client)
+    cors: {origin: 'http://localhost:3000'}
+});
 
-app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+io.on('connection', (socket: Socket) => {
+    console.log(socket.id + ' Connection');
+    socket.on('disconnect', () => {
+        console.log(socket.id + ' Disconnection');
+    });
+    socket.on('pushAction', (action) => {
+        io.emit('pullAction', action)
+    })
+});
 
-app.use('/test', TestRouter)
 
-app.listen(5000);
+
+
+server.listen(5000);
