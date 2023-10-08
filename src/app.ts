@@ -8,12 +8,16 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket: Socket) => {
-    console.log(socket.id + ' Connection');
+    const code = socket.handshake.query.code as string;
+    socket.join(code);
+    console.log(socket.id + ' Connection with code: ' + code);
     socket.on('disconnect', () => {
+        socket.leave(code);
         console.log(socket.id + ' Disconnection');
     });
     socket.on('pushAction', (action) => {
-        io.emit('pullAction', action)
+        socket.broadcast.to(code).emit('pullAction', action);
+        console.log('Sending ' + JSON.stringify(action));
     })
 });
 
