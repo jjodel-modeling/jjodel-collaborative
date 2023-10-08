@@ -1,0 +1,24 @@
+{
+  "name": "collaborative-server",
+  "version": "1.0.0",
+  "description": "A collaborative server for the jjodel platform.",
+  "main": "src/app.ts",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "lint": "eslint . --ext .ts"
+  },
+  "keywords": [],
+  "author": "Giordano Tinella",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.18",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "@typescript-eslint/parser": "^6.7.4",
+    "eslint": "^8.51.0",
+    "nodemon": "^3.0.1",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
