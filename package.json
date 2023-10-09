@@ -4,7 +4,8 @@
   "description": "A collaborative server for the jjodel platform.",
   "main": "src/app.ts",
   "scripts": {
-    "dev": "nodemon src/app.ts",
+    "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
+    "prod": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.production",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
@@ -19,7 +20,9 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "mongodb": "^6.1.0",
     "socket.io": "^4.7.2"
   }
 }
