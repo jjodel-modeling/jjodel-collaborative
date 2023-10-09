@@ -27,7 +27,7 @@ io.on('connection', async(socket: Socket) => {
     socket.on('pushAction', async(action) => {
         socket.broadcast.to(code).emit('pullAction', action);
         await collection.insertOne(action);
-        console.log('Sending ' + JSON.stringify(action));
+        console.log('Sending ' + action.timestamp);
     })
 });
 
