@@ -1,6 +1,6 @@
 import {Router} from 'express'
-import {MongoClient} from "mongodb";
-import U from "../common/U";
+import {MongoClient} from 'mongodb';
+import U from '../common/u';
 
 const router = Router();
 

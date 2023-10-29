@@ -33,7 +33,7 @@ io.on('connection', async(socket: Socket) => {
 
 server.listen(5001);
 
-/* Rest */
+/* Rest (temporary) */
 const app = express();
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));

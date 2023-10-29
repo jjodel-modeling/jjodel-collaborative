@@ -1,7 +1,7 @@
 {
   "name": "collaborative-server",
   "version": "1.0.0",
-  "description": "A collaborative server for the jjodel platform.",
+  "description": "The collaborative server for the jjodel platform.",
   "main": "src/app.ts",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
