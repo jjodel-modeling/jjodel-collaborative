@@ -23,16 +23,28 @@ import {ActionsController} from "./controllers/actions";
     const server = http.createServer();
     const io = new Server(server, {path: '/collaborative'});
     server.listen(5001);
+    let users = 0;
     io.on('connection', async(socket: Socket) => {
         const project = socket.handshake.query.project as string;
-        if(!project) return;
+        if(!project) return; users += 1;
 
         socket.join(project);
         console.log(socket.id + ' Connected to Project: ' + project);
 
+        const actions = await ActionsController.get(project);
+        for(const action of actions) {
+            socket.emit('pullAction', action);
+            console.log('INIT: Sending ' + action.timestamp);
+        }
+
         socket.on('disconnect', () => {
+            users -= 1;
+            if(users === 0) {
+                ActionsController.delete(project);
+                console.log('Cleaning Actions from Project: ' + project);
+            }
             socket.leave(project);
-            console.log(socket.id + ' Disconnection');
+            console.log(`${socket.id} Disconnection (users=${users})`);
         });
 
         socket.on('pushAction', async(action) => {

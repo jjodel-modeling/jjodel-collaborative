@@ -18,8 +18,9 @@ class U {
         return new Promise((resolve) => setTimeout(resolve, s * 1000));
     }
 
-    static clean(e: Dictionary): Dictionary {
+    static clean(e: Dictionary, className?: string): Dictionary {
         delete e['_id']; delete e['__v']; delete e['projectId'];
+        if(className) e['className'] = className;
         return e;
     }
     static defaultValue(schema: SchemaType): Primitive|Primitive[] {
