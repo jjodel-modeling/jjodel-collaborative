@@ -7,6 +7,8 @@
     "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
     "docker": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.docker",
     "prod": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.production",
+    "build": "ts-node esbuild.config.ts",
+    "serve": "node dist/main.bundle.js",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
@@ -16,6 +18,7 @@
     "@types/express": "^4.17.18",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "esbuild": "^0.19.8",
     "eslint": "^8.51.0",
     "nodemon": "^3.0.1",
     "typescript": "^5.2.2"
