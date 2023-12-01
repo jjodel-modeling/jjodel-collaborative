@@ -5,6 +5,7 @@
   "main": "src/app.ts",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.development",
+    "docker": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.docker",
     "prod": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.production",
     "lint": "eslint . --ext .ts"
   },

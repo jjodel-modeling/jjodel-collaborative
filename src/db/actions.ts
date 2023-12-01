@@ -6,7 +6,6 @@ export class Actions {
         id: {type: String},
         timestamp: {type: String},
         sender: {type: String},
-        token: {type: String},
         hasFired: {type: Boolean},
         consoleTargetSelector: {type: String},
         type: {type: String},
