@@ -22,6 +22,6 @@ export class Actions {
     static keys = this.Schema.paths;
 
     static create = (values: Record<string, unknown>) => new this.Model(values).save().then(entity => entity.toObject());
-    static getByProject = (projectId: string) => this.Model.find({projectId});
+    static getByProject = (projectId: string) => this.Model.find({projectId}).sort({timestamp: 'asc'});
     static deleteByProject = (projectId: string) => this.Model.deleteMany({projectId});
 }

@@ -5,8 +5,15 @@ import U from './common/u';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
 
-/* Database */
+/* Web Socket */
+const PORT = 5001;
+const server = http.createServer();
+const io = new Server(server, {path: '/collaborative'});
+server.listen(PORT);
+console.log(`Server Listening on port ${PORT}.`);
+
 (async function() {
+    /* Database */
     mongoose.Promise = Promise;
     let connection = false;
     while(!connection) {
@@ -20,10 +27,6 @@ import Action from './data/Action';
         }
     }
 
-    /* Web Socket */
-    const server = http.createServer();
-    const io = new Server(server, {path: '/collaborative'});
-    server.listen(5001);
     const users = {};
     io.on('connection', async(socket: Socket) => {
         const project = socket.handshake.query.project as string;
@@ -35,7 +38,9 @@ import Action from './data/Action';
         socket.join(project);
         console.log('New User Connected to Project: ' + project);
         const action = Action.SET_FIELD(project, 'onlineUsers', '=', users[project], false);
-        socket.to(project).emit('pullAction', action);
+        /* Since the user is connecting and NOT connected, I cannot use socket.to(project).emit */
+        socket.emit('pullAction', action);
+        socket.broadcast.to(project).emit('pullAction', action);
 
         /* Pulling actions. */
         const actions = await ActionsController.get(project);

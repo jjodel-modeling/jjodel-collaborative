@@ -1,7 +1,8 @@
 import * as esbuild from 'esbuild';
 import dotenv from 'dotenv';
 
-dotenv.config({path: '.env.production'});
+// Change the environment (production|docker) depends on your need.
+dotenv.config({path: '.env.docker'});
 esbuild.build({
     entryPoints: ['./src/app.ts'],
     bundle: true,
