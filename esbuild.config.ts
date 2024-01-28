@@ -7,7 +7,7 @@ esbuild.build({
     entryPoints: ['./src/app.ts'],
     bundle: true,
     platform: 'node',
-    outfile: './build/main.bundle.js',
+    outfile: './dist/main.bundle.js',
     loader: {'.ts': 'ts'},
     define: {
         'process.env.MONGODB_URL': `'${process.env['MONGODB_URL']}'`
