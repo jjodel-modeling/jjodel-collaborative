@@ -8,8 +8,12 @@ import Action from './data/Action';
 /* Web Socket */
 const PORT = 5001;
 const server = http.createServer();
-const io = new Server(server, {path: '/collaborative'});
+const io = new Server(server, {
+    cors: {origin: 'http://localhost:3000'},
+    path: '/collaborative'
+});
 server.listen(PORT);
+console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
 
 (async function() {
