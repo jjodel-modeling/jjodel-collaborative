@@ -1,7 +1,5 @@
 import http from 'http';
 import {Server, Socket} from 'socket.io';
-import mongoose from 'mongoose';
-import U from './common/u';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
 
@@ -17,7 +15,8 @@ console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
 
 (async function() {
-    /* Database */
+    /*
+        /* Database * /
     mongoose.Promise = Promise;
     let connection = false;
     while(!connection) {
@@ -30,16 +29,16 @@ console.log(`Server Listening on port ${PORT}.`);
             await U.sleep(30);
         }
     }
-
+    */
     const users = {};
     io.on('connection', async(socket: Socket) => {
         const project = socket.handshake.query.project as string;
-        if(!project) return;
-        if(!users[project]) users[project] = 0;
-
+        if (!project) return;
         /* Adding the user to the channel. */
-        users[project] += 1;
-        socket.join(project);
+        if (!users[project]) users[project] = 1;
+        else users[project]++;
+
+        /* await */socket.join(project);
         console.log('New User Connected to Project: ' + project);
         const action = Action.SET_FIELD(project, 'onlineUsers', '=', users[project], false);
         /* Since the user is connecting and NOT connected, I cannot use socket.to(project).emit */
@@ -48,7 +47,7 @@ console.log(`Server Listening on port ${PORT}.`);
 
         /* Pulling actions. */
         const actions = await ActionsController.get(project);
-        for(const action of actions) {
+        for (const action of actions) {
             socket.emit('pullAction', action);
             console.log(`Initializing: ${Action.toString(action)}`);
         }

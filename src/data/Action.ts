@@ -5,10 +5,10 @@ class Action {
     static toString(action: Dictionary): string {
         if(action['className'] !== 'CompositeAction')
             return `${action['className']} -> ${action['path']} = ${action['value']}`;
-        const actions = action['actions']; let str = 'CompositeAction' + '\n' + '**********BEGIN**********';
-        if(Array.isArray(actions))
-            for(const action of actions)
-                str += '\n' + Action.toString(action);
+        const actions = action['actions'];
+        let str = 'CompositeAction (' + actions?.length+')' + '\n' + '**********BEGIN**********';
+        if (Array.isArray(actions))
+            for (const action of actions) str += '\n' + Action.toString(action);
         str += '\n' + '***********END***********';
         return str;
     }
