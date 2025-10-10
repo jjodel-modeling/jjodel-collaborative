@@ -8,7 +8,6 @@
     "docker": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.docker",
     "prod": "nodemon -r dotenv/config src/app.ts dotenv_config_path=.env.production",
     "build": "npx ts-node esbuild.config.ts",
-    "postbuild": "node build/main.bundle.js",
     "serve": "node build/main.bundle.js",
     "lint": "eslint . --ext .ts"
   },
