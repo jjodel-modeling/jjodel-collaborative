@@ -3,8 +3,8 @@ import U from '../common/u';
 
 class Action {
     static toString(action: Dictionary): string {
-        if(action['className'] !== 'CompositeAction')
-            return `${action['className']} -> ${action['path']} = ${action['value']}`;
+        if (action['className'] !== 'CompositeAction')
+            return `[${action['sender']}] ${action['className']} -> ${action['path']} = ${action['value']}`;
         const actions = action['actions'];
         let str = 'CompositeAction (' + actions?.length+')' + '\n' + '**********BEGIN**********';
         if (Array.isArray(actions))

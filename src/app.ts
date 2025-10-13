@@ -1,15 +1,20 @@
-import http from 'http';
+// import http from 'http';
+import https from 'https';
+import fs from 'fs';
 import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
+const options = {
+    key: fs.readFileSync('private-key.pem'),
+    cert: fs.readFileSync('certificate.pem'),
+    cors: {origin: 'https://localhost:3000'},
+    path: '/collaborative'
+};
 
 /* Web Socket */
 const PORT = 5001;
-const server = http.createServer();
-const io = new Server(server, {
-    cors: {origin: 'http://localhost:3000'},
-    path: '/collaborative'
-});
+const server = https.createServer();
+const io = new Server(server, options);
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
@@ -39,7 +44,7 @@ console.log(`Server Listening on port ${PORT}.`);
         else users[project]++;
 
         /* await */socket.join(project);
-        console.log('New User Connected to Project: ' + project);
+        console.log(`${socket.id} New User Connected to Project: ${project} (users=${users[project]})`);
         const action = Action.SET_FIELD(project, 'onlineUsers', '=', users[project], false);
         /* Since the user is connecting and NOT connected, I cannot use socket.to(project).emit */
         socket.emit('pullAction', action);
@@ -57,7 +62,7 @@ console.log(`Server Listening on port ${PORT}.`);
             users[project] -= 1;
             const action = Action.SET_FIELD(project, 'onlineUsers', '=', users[project], false);
             socket.broadcast.to(project).emit('pullAction', action);
-            if(users[project] === 0) {
+            if (users[project] === 0) {
                 ActionsController.delete(project);
                 console.log('Cleaning Actions from Project: ' + project);
             }
