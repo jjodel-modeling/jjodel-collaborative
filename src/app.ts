@@ -7,14 +7,14 @@ import Action from './data/Action';
 const options = {
     key: fs.readFileSync('private-key.pem'),
     cert: fs.readFileSync('certificate.pem'),
-    cors: {origin: 'https://localhost:3000'},
-    path: '/collaborative'
 };
 
 /* Web Socket */
 const PORT = 5001;
-const server = https.createServer();
-const io = new Server(server, options);
+const server = https.createServer(options);
+const io = new Server(server, {
+    cors: {origin: 'https://localhost:3000'},
+    path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
