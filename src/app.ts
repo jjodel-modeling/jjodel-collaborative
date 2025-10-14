@@ -4,20 +4,22 @@ import fs from 'fs';
 import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
-const options = {
+const httpsOptions = {
     key: fs.readFileSync('private-key.pem'),
     cert: fs.readFileSync('certificate.pem'),
 };
 
 /* Web Socket */
 const PORT = 5001;
-const server = https.createServer(options);
+const server = https.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: 'https://localhost:3000'},
     path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
+
+// function a(){}
 
 (async function() {
     /*
@@ -43,7 +45,7 @@ console.log(`Server Listening on port ${PORT}.`);
         if (!users[project]) users[project] = 1;
         else users[project]++;
 
-        /* await */socket.join(project);
+        await socket.join(project);
         console.log(`${socket.id} New User Connected to Project: ${project} (users=${users[project]})`);
         const action = Action.SET_FIELD(project, 'onlineUsers', '=', users[project], false);
         /* Since the user is connecting and NOT connected, I cannot use socket.to(project).emit */
