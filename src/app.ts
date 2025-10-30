@@ -5,8 +5,7 @@ import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
 const httpsOptions = {
-    //key: fs.readFileSync('private-key.pem'),
-    //cert: fs.readFileSync('certificate.pem'),
+    
 };
 
 /* Web Socket */
