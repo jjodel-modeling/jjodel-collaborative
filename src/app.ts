@@ -10,7 +10,7 @@ const httpsOptions = {
 };
 
 /* Web Socket */
-const PORT = process.env.PORT || 3000;;
+const PORT = 8080;
 const server = https.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: '*'},
