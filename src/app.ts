@@ -5,15 +5,15 @@ import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
 const httpsOptions = {
-    key: fs.readFileSync('private-key.pem'),
-    cert: fs.readFileSync('certificate.pem'),
+    //key: fs.readFileSync('private-key.pem'),
+    //cert: fs.readFileSync('certificate.pem'),
 };
 
 /* Web Socket */
-const PORT = 5001;
+const PORT = process.env.PORT || 3000;;
 const server = https.createServer(httpsOptions);
 const io = new Server(server, {
-    cors: {origin: 'https://localhost:3000'},
+    cors: {origin: '*'},
     path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
