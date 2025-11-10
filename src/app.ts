@@ -18,9 +18,7 @@ server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
 console.log(`Server Listening on port ${PORT}.`);
 
-server.on('error', (err) => {
-  console.error('Server error:', err);
-})
+
 
 // function a(){}
 
