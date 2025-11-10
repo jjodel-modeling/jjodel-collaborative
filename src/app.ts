@@ -1,26 +1,25 @@
-import http from 'http';
+// import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
 const httpsOptions = {
-    
+
 };
 
 /* Web Socket */
 const PORT = process.env.PORT || 5001;
-const server = http.createServer(httpsOptions);
+const server = https.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: '*'},
     path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
-console.log('Server Listening on port ${PORT}.');
-
-
+console.log(`Server Listening on port ${PORT}.`);
 
 // function a(){}
+
 
 (async function() {
     /*
