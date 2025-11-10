@@ -1,4 +1,4 @@
-// import http from 'http';
+import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import {Server, Socket} from 'socket.io';
@@ -10,13 +10,18 @@ const httpsOptions = {
 
 /* Web Socket */
 const PORT = process.env.PORT || 5001;
-const server = https.createServer(httpsOptions);
+const server = http.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: '*'},
     path: '/collaborative'});
-server.listen(PORT);
-console.log('********** JJodel Collaborative Server v1.2  **********');
-console.log(`Server Listening on port ${PORT}.`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log('********** JJodel Collaborative Server v1.2 **********');
+  console.log(`Server Listening on port ${PORT} (0.0.0.0).`);
+});
+
+server.on('error', (err) => {
+  console.error('Server error:', err);
+})
 
 // function a(){}
 
