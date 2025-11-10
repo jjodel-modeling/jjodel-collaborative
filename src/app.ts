@@ -1,4 +1,4 @@
-// import http from 'http';
+import http from 'http';
 import https from 'https';
 import fs from 'fs';
 import {Server, Socket} from 'socket.io';
@@ -16,7 +16,7 @@ const io = new Server(server, {
     path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
-console.log('Server Listening on port ${PORT}.');
+console.log('Server Listening on port ' + PORT);
 
 // function a(){}
 
