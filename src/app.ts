@@ -14,10 +14,9 @@ const server = http.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: '*'},
     path: '/collaborative'});
-server.listen(PORT, '0.0.0.0', () => {
-  console.log('********** JJodel Collaborative Server v1.2 **********');
-  console.log(`Server Listening on port ${PORT} (0.0.0.0).`);
-});
+server.listen(PORT);
+console.log('********** JJodel Collaborative Server v1.2  **********');
+console.log(`Server Listening on port ${PORT}.`);
 
 server.on('error', (err) => {
   console.error('Server error:', err);
