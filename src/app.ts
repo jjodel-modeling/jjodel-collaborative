@@ -16,7 +16,7 @@ const io = new Server(server, {
     path: '/collaborative'});
 server.listen(PORT);
 console.log('********** JJodel Collaborative Server v1.2  **********');
-console.log(`Server Listening on port ${PORT}.`);
+console.log('Server Listening on port ${PORT}.');
 
 
 
