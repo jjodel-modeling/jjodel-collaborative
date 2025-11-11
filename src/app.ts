@@ -9,8 +9,8 @@ const httpsOptions = {
 };
 
 /* Web Socket */
-const PORT = process.env.PORT || 5001;
-const server = https.createServer(httpsOptions);
+const PORT = process.env.PORT || 5002;
+const server = http.createServer(httpsOptions);
 const io = new Server(server, {
     cors: {origin: '*'},
     path: '/collaborative'});
