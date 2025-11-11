@@ -1,6 +1,4 @@
 import http from 'http';
-import https from 'https';
-import fs from 'fs';
 import {Server, Socket} from 'socket.io';
 import {ActionsController} from './controllers/actions';
 import Action from './data/Action';
@@ -10,7 +8,17 @@ const httpsOptions = {
 
 /* Web Socket */
 const PORT = process.env.PORT || 5002;
-const server = http.createServer(httpsOptions);
+const server = http.createServer((req, res) => {
+  if (req.url === '/health') {
+    // Endpoint di health check per App Service
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
+    res.end('OK');
+  } else {
+    // Per altre richieste puoi rispondere con 404 o altro
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Not found');
+  }
+});
 const io = new Server(server, {
     cors: {origin: '*'},
     path: '/collaborative'});
